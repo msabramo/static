@@ -1,11 +1,5 @@
 import pkg_resources
 
-version_file = pkg_resources.resource_filename(__name__, 'VERSION')
-with open(version_file) as vf:
-    __version__ = vf.read()
-del version_file
-
-
 from static.apps import (
     BaseMagic,
     cling_wrap,
@@ -15,6 +9,12 @@ from static.apps import (
     Shock,
     StatusApp,
     StringMagic)
+
+
+version_file = pkg_resources.resource_filename(__name__, 'VERSION')
+with open(version_file) as vf:
+    __version__ = vf.read()
+del version_file
 
 
 __all__ = ['__version__',
