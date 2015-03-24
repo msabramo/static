@@ -100,8 +100,8 @@ class Cling(object):
                 return self.moved_permanently(environ, start_response, headers)
             else:
                 full_path = self._full_path(path_info + self.index_file)
-        prezipped = ('gzip' in environ.get('HTTP_ACCEPT_ENCODING', '')
-                     and path.exists(full_path + '.gz'))
+        prezipped = ('gzip' in environ.get('HTTP_ACCEPT_ENCODING', '') and
+                     path.exists(full_path + '.gz'))
         if prezipped:
             full_path += '.gz'
         content_type = self._guess_type(full_path)
@@ -111,8 +111,8 @@ class Cling(object):
                        ('Last-Modified', last_modified),
                        ('ETag', etag)]
             if_modified = environ.get('HTTP_IF_MODIFIED_SINCE')
-            if if_modified and (parsedate(if_modified)
-                                >= parsedate(last_modified)):
+            if if_modified and (parsedate(if_modified) >=
+                                parsedate(last_modified)):
                 return self.not_modified(environ, start_response, headers)
             if_none = environ.get('HTTP_IF_NONE_MATCH')
             if if_none and (if_none == '*' or etag in if_none):
@@ -242,8 +242,8 @@ class Shock(Cling):
         """Guess the mime type magically or using the mimetypes module."""
         magic = self._match_magic(full_path)
         if magic is not None:
-            return (mimetypes.guess_type(magic.old_path(full_path))[0]
-                    or 'text/plain')
+            return (mimetypes.guess_type(magic.old_path(full_path))[0] or
+                    'text/plain')
         else:
             return mimetypes.guess_type(full_path)[0] or 'text/plain'
 
